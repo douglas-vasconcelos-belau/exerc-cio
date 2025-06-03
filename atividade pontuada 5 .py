@@ -1,8 +1,12 @@
 # biblioteca.py
+import os
+import time
+
 
 def exibir_menu():
+    
     """Exibe o menu principal do sistema da biblioteca."""
-    print("\n--- Sistema de Gestão de Biblioteca ---")
+    print("\n--- Sistema de Gestão de Biblioteca ---\n")
     print("1. Cadastrar Livro")
     print("2. Listar Livros")
     print("3. Buscar Livro por Título")
@@ -21,10 +25,14 @@ def cadastrar_livro(lista_livros: list):
             preco = float(input("Preço do livro: "))
             if preco < 0:
                 print("Preço não pode ser negativo. Tente novamente.")
+                time.sleep(2.5)
             else:
                 break
         except ValueError:
             print("Entrada inválida para o preço. Por favor, digite um número.")
+            
+        time.sleep(2.5)
+
 
     while True: 
         try:
@@ -40,12 +48,16 @@ def cadastrar_livro(lista_livros: list):
     livro = {'titulo': titulo, 'autor': autor, 'preco': preco, 'quantidade': quantidade, 'emprestados': 0}
     lista_livros.append(livro)
     print(f"Livro '{titulo}' cadastrado com sucesso!")
+    time.sleep(4)
+
 
 def listar_livros(lista_livros: list):
 
     print("\n--- Livros Cadastrados ---")
     if not lista_livros:
         print("Nenhum livro cadastrado ainda.")
+        time.sleep(2.5)
+
         return
 
     for i, livro in enumerate(lista_livros):
@@ -54,6 +66,8 @@ def listar_livros(lista_livros: list):
               f"Preço: R${livro['preco']:.2f} | Total: {livro['quantidade']} | "
               f"Disponível: {disponivel} | Emprestados: {livro['emprestados']}")
         print("-" * 60) # Separador para melhor legibilidade
+        
+        time.sleep(5)
 
 def buscar_livro(lista_livros: list):
     """
@@ -80,6 +94,8 @@ def buscar_livro(lista_livros: list):
                   f"Preço: R${livro['preco']:.2f} | Total: {livro['quantidade']} | "
                   f"Disponível: {disponivel} | Emprestados: {livro['emprestados']}")
             print("-" * 60)
+
+    time.sleep(2.5)
 
 def emprestar_devolver_livro(lista_livros: list):
     """
@@ -132,6 +148,7 @@ def emprestar_devolver_livro(lista_livros: list):
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.")
 
+
     if acao == 1: # Emprestar
         if livro_selecionado['quantidade'] - livro_selecionado['emprestados'] >= quantidade_operacao:
             livro_selecionado['emprestados'] += quantidade_operacao
@@ -145,14 +162,20 @@ def emprestar_devolver_livro(lista_livros: list):
         else:
             print(f"Não há {quantidade_operacao} cópias emprestadas para devolver. Atualmente {livro_selecionado['emprestados']} emprestadas.")
 
+    time.sleep(2.5)
+
 def main():
     """Função principal que gerencia o fluxo do sistema da biblioteca."""
     lista_livros = []
 
     while True:
+
+        os.system("cls || clear")
+
         exibir_menu()
-        
+
         escolha = int(input("Escolha uma opção: "))
+        os.system("cls || clear")
 
         match escolha:
             case 1:
